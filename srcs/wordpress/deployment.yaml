@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+        name: wp-deployment
+        labels:
+                app: amazapp
+spec:
+        replicas: 2
+        selector:
+                matchLabels:
+                        app: amazapp
+        template:
+                metadata:
+                        labels:
+                                app: amazapp
+                spec:
+                        containers:
+                                - name: wp
+                                  imagePullPolicy: Never
+                                  image: wp
+                                  ports:
+                                          - containerPort: 5050
+                                - name: mysql
+                                  imagePullPolicy: Never
+                                  image : mysql

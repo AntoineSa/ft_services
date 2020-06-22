@@ -9,4 +9,4 @@ spec:
       - path: /
         backend:
           serviceName: nginx-service
-          servicePort: 80
+          servicePort: 443
