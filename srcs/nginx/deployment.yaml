@@ -5,7 +5,7 @@ metadata:
         labels:
                 app: nginx
 spec:
-        replicas: 3
+        replicas: 2
         selector:
                 matchLabels:
                         app: nginx
@@ -17,11 +17,4 @@ spec:
                         containers:
                                 - name: nginx
                                   imagePullPolicy: Never
-                                  image: nginx
-                                  ports:
-                                          - containerPort: 80
-                                            name: http
-                                          - containerPort: 443
-                                            name: https
-                                          - containerPort: 22
-                                            name: ftp
+                                  image: my_nginx

@@ -12,17 +12,21 @@
 
 FROM	alpine
 
-RUN	apk update && apk add nginx openssh openssl && \
+RUN	apk update
+
+ARG	M_IP
+ENV	M_IP=$M_IP
+
+RUN	apk add nginx openssh openssl && \
 	mkdir -p /run/nginx /etc/ssl/certs /etc/ssl/private && \
 	cp /var/lib/nginx/html/index.html /var/www/index.html
 
 COPY	nginx.conf /etc/nginx/
 COPY	ssl_params.conf etc/nginx/
+COPY	nginx_setup.sh .
 
-ENTRYPOINT	cd /etc/ssh && ssh-keygen -A && cd ~ && \
-		openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx.key -out /etc/ssl/certs/nginx.crt -subj "/CN=$(minikube ip)" && \
-		openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 2048 && \
-		/usr/sbin/sshd && \
-		/usr/sbin/nginx -g 'daemon off;'
+RUN	chmod 777 nginx_setup.sh
+
+ENTRYPOINT	./nginx_setup.sh
 
 EXPOSE	80 443 22

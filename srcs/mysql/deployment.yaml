@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-        name: wp-deployment
+        name: mysql-deployment
         labels:
                 app: amazapp
 spec:
@@ -15,8 +15,8 @@ spec:
                                 app: amazapp
                 spec:
                         containers:
-                                - name: wp
+                                - name: mysql
                                   imagePullPolicy: Never
-                                  image: wp
+                                  image: mysql
                                   ports:
-                                          - containerPort: 5050
+                                          - containerPort: 3306

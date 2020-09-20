@@ -13,6 +13,19 @@
 FROM	alpine
 
 RUN	apk update
-RUN 	apk add php-cli php7 mysql mysql-client
+RUN 	apk add mysql mysql-client --update --no-cache
+RUN	mkdir -p /run/mysqld
 
-ENTRYPOINT	sh
+ENV	DB_NAME wordpress
+ENV	DB_USER admin
+ENV	DB_PASSWORD pass
+
+COPY	mysql-setup.sh .
+
+RUN	chmod 777 mysql-setup.sh
+
+VOLUME	[ "/var/lib/mysql"]
+
+expose	3306
+
+ENTRYPOINT	./mysql-setup.sh
