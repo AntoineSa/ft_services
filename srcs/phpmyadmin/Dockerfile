@@ -6,28 +6,21 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/28 12:31:40 by asablayr          #+#    #+#              #
-#    Updated: 2020/09/22 18:44:43 by asablayr         ###   ########.fr        #
+#    Updated: 2020/09/24 16:08:07 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM	alpine
 
-RUN	apk update
-RUN 	apk add mysql mysql-client --update --no-cache
-RUN	mkdir -p /run/mysqld && rm etc/my.cnf
+RUN	apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session --update --no-cache
+RUN	wget https://files.phpmyadmin.net/phpMyAdmin/4.9.2/phpMyAdmin-4.9.2-all-languages.tar.gz && tar -xzvf phpMyAdmin-4.9.2-all-languages.tar.gz
+RUN	mkdir -p /www && mv phpMyAdmin-4.9.2-all-languages /www/phpmyadmin && rm -rf phpMyAdmin-4.9.2-all-languages.tar.gz
 
-ENV	DB_NAME='wordpress'
-ENV	DB_USER='admin'
-ENV	DB_PASSWORD='psswd'
+COPY	phpmyadmin_setup.sh .
+COPY	config.inc.php /www/phpmyadmin
 
-COPY	mysql-setup.sh .
-COPY	my.cnf /etc/mysql/
-#COPY	wordpress.sql .
+RUN	chmod 777 phpmyadmin_setup.sh
 
-RUN	chmod 777 mysql-setup.sh
+ENTRYPOINT	./phpmyadmin_setup.sh
 
-VOLUME	[ "/var/lib/mysql"]
-
-expose	3306
-
-ENTRYPOINT	./mysql-setup.sh
+EXPOSE	5000

@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/28 12:31:40 by asablayr          #+#    #+#              #
-#    Updated: 2020/05/28 12:52:09 by asablayr         ###   ########.fr        #
+#    Updated: 2020/09/21 15:49:05 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,6 @@ COPY	wp-config.php var/www/wordpress
 
 RUN	rm var/www/wordpress/wp-config-sample.php
 
-ENTRYPOINT	php -S 0.0.0.0:5050 /var/www/wordpress/
+ENTRYPOINT	php -S 0.0.0.0:5050 -t /var/www/wordpress/
 
 EXPOSE	5050

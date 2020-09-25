@@ -5,6 +5,6 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: amazapp
+    app: mysql
   ports:
     - port: 3306

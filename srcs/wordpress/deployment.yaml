@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
         name: wp-deployment
         labels:
-                app: amazapp
+                app: wordpress
 spec:
-        replicas: 2
+        replicas: 1
         selector:
                 matchLabels:
-                        app: amazapp
+                        app: wordpress
         template:
                 metadata:
                         labels:
-                                app: amazapp
+                                app: wordpress
                 spec:
                         containers:
-                                - name: wp
+                                - name: wordpress
                                   imagePullPolicy: Never
-                                  image: wp
+                                  image: my_wp
                                   ports:
                                           - containerPort: 5050
