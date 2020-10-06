@@ -31,5 +31,8 @@ spec:
                                 - name: mysql
                                   imagePullPolicy: Never
                                   image: my_mysql
-                                  ports:
-                                          - containerPort: 3306
+                                  livenessProbe:
+                                          exec:
+                                                  command: ["pgrep", "mysqld"]
+                                          initialDelaySeconds: 10
+                                          periodSeconds: 5
