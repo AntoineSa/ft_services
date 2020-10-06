@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/28 12:31:40 by asablayr          #+#    #+#              #
-#    Updated: 2020/09/22 18:44:43 by asablayr         ###   ########.fr        #
+#    Updated: 2020/10/06 16:04:05 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ ENV	DB_PASSWORD='psswd'
 
 COPY	mysql-setup.sh .
 COPY	my.cnf /etc/mysql/
-#COPY	wordpress.sql .
+COPY	wordpress.sql .
 
 RUN	chmod 777 mysql-setup.sh
 
