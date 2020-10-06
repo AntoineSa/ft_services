@@ -19,13 +19,9 @@ docker build -t my_phpmyadmin ./srcs/phpmyadmin;
 #docker build -t my_influxdb ./srcs/influxdb;
 
 kubectl apply -f srcs/nginx/deployment.yaml;
-kubectl apply -f srcs/nginx/service.yaml;
 kubectl apply -f srcs/wordpress/deployment.yaml;
-kubectl apply -f srcs/wordpress/service.yaml;
 kubectl apply -f srcs/mysql/deployment.yaml;
-kubectl apply -f srcs/mysql/service.yaml;
 kubectl apply -f srcs/phpmyadmin/deployment.yaml;
-kubectl apply -f srcs/phpmyadmin/service.yaml;
 
 minikube addons enable dashboard
 minikube addons enable ingress
