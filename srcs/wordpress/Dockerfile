@@ -6,16 +6,17 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/28 12:31:40 by asablayr          #+#    #+#              #
-#    Updated: 2020/09/21 15:49:05 by asablayr         ###   ########.fr        #
+#    Updated: 2020/10/08 13:13:21 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM	alpine
 
 RUN	apk update
-RUN 	apk add php-cli php7 php7-fpm php7-mysqli php7-curl php7-opcache php7-gd php7-zlib php7-curl php7-mbstring php7-json php7-session && \
-	wget https://wordpress.org/latest.tar.gz && \
-	mkdir -p var/www && mv latest.tar.gz var/www/ && \
+RUN	apk add php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session --update --no-cache
+RUN 	apk add php-cli php7-opcache php7-gd --update --no-cache
+RUN	wget https://wordpress.org/latest.tar.gz
+RUN	mkdir -p var/www && mv latest.tar.gz var/www/ && \
 	cd var/www/ && tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
 
 COPY	wp-config.php var/www/wordpress

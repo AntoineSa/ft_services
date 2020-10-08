@@ -10,10 +10,30 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 
 kubectl apply -f srcs/metallb/config.yaml;
 
-docker build -t my_nginx ./srcs/nginx --build-arg M_IP=$(minikube ip);
+docker build -t my_nginx ./srcs/nginx --build-arg M_IP=$(minikube ip)
+while [ "$?" != '0' ] 
+do
+	echo "failed to build Nginx container image.\nRetry"
+	docker build -t my_nginx ./srcs/nginx --build-arg M_IP=$(minikube ip)
+done
 docker build -t my_wp ./srcs/wordpress;
+while [ "$?" != '0' ] 
+do
+	echo "failed to build wordpress container image.\nRetry"
+	docker build -t my_wp ./srcs/wordpress;
+done
 docker build -t my_mysql ./srcs/mysql;
+while [ "$?" != '0' ] 
+do
+	echo 'failed to build, retry'
+	docker build -t my_mysql ./srcs/mysql;
+done
 docker build -t my_phpmyadmin ./srcs/phpmyadmin;
+while [ "$?" != '0' ] 
+do
+	echo 'failed to build, retry'
+	docker build -t my_phpmyadmin ./srcs/phpmyadmin;
+done
 #docker build -t my_ftps ./srcs/ftps;
 #docker build -t my_grafana ./srcs/grafana;
 #docker build -t my_influxdb ./srcs/influxdb;

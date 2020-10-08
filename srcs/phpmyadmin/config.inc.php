@@ -1,5 +1,7 @@
 <?php
 
+$cfg['blowfish_secret'] = 'ce8ZzWHhUQSBPhE6GrqX]s-JchNnxIj{';
+
 $i = 1;
 
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
@@ -14,4 +16,6 @@ $cfg['Servers'][$i]['password'] = 'psswd';
 
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+
+$cfg['ZeroConf'] = 'true';
 
