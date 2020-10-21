@@ -10,30 +10,42 @@ kubectl create secret generic -n metallb-system memberlist --from-literal=secret
 
 kubectl apply -f srcs/metallb/config.yaml;
 
+i=0
 docker build -t my_nginx ./srcs/nginx --build-arg M_IP=$(minikube ip)
-while [ "$?" != '0' ] 
+while [ "$?" != 0 ] && [ $i -lt 5 ]
 do
-	echo "failed to build Nginx container image.\nRetry"
+	i=$((i + 1))
+	echo "\nfailed to build Nginx container image.\nRetry\n"
 	docker build -t my_nginx ./srcs/nginx --build-arg M_IP=$(minikube ip)
 done
+i=0
+echo "\n"
 docker build -t my_wp ./srcs/wordpress;
-while [ "$?" != '0' ] 
+while [ "$?" != 0 ] && [ $i -lt 5 ]
 do
-	echo "failed to build wordpress container image.\nRetry"
+	i=$((i + 1))
+	echo "\nfailed to build wordpress container image.\nRetry $i of 5\n"
 	docker build -t my_wp ./srcs/wordpress;
 done
+i=0
+echo "\n"
 docker build -t my_mysql ./srcs/mysql;
-while [ "$?" != '0' ] 
+while [ "$?" != 0 ] && [ $i -lt 5 ] 
 do
-	echo 'failed to build, retry'
+	i=$((i + 1))
+	echo "\nfailed to build mysql container image.\nRetry $i of 5\n"
 	docker build -t my_mysql ./srcs/mysql;
 done
+i=0
+echo "\n"
 docker build -t my_phpmyadmin ./srcs/phpmyadmin;
-while [ "$?" != '0' ] 
+while [ "$?" != 0 ] && [ $i -lt 5 ]
 do
-	echo 'failed to build, retry'
+	i=$((i + 1))
+	echo "\nfailed to build phpMyAdmin container image.\nRetry $i of 5\n"
 	docker build -t my_phpmyadmin ./srcs/phpmyadmin;
 done
+echo "\n"
 #docker build -t my_ftps ./srcs/ftps;
 #docker build -t my_grafana ./srcs/grafana;
 #docker build -t my_influxdb ./srcs/influxdb;
