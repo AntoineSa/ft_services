@@ -4,8 +4,10 @@ metadata:
         name: wp-service
         annotations:
                 metallb.universe.tf/address-pool: default
+                metallb.universe.tf/allow-shared-ip: "tag"
 spec:
         type: LoadBalancer
+        loadBalancerIP: 172.17.0.20
         selector:
                 app: wordpress
         ports:
