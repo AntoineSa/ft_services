@@ -6,7 +6,7 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/28 12:31:40 by asablayr          #+#    #+#              #
-#    Updated: 2020/10/07 20:01:15 by asablayr         ###   ########.fr        #
+#    Updated: 2020/10/26 17:39:09 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,4 +29,4 @@ RUN	chmod 777 nginx_setup.sh
 
 ENTRYPOINT	./nginx_setup.sh
 
-EXPOSE	80 443 22
+EXPOSE	80 443

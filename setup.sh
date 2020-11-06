@@ -46,14 +46,38 @@ do
 	docker build -t my_phpmyadmin ./srcs/phpmyadmin;
 done
 echo "\n"
-#docker build -t my_ftps ./srcs/ftps;
-#docker build -t my_grafana ./srcs/grafana;
-#docker build -t my_influxdb ./srcs/influxdb;
+docker build -t my_ftps ./srcs/ftps --build-arg M_IP=$(minikube ip);
+while [ "$?" != 0 ] && [ $i -lt 5 ]
+do
+	i=$((i + 1))
+	echo "\nfailed to build ftps container image.\nRetry $i of 5\n"
+	docker build -t my_ftps ./srcs/ftps --build-arg M_IP=$(minikube ip);
+done
+echo "\n"
+docker build -t my_grafana ./srcs/grafana;
+while [ "$?" != 0 ] && [ $i -lt 5 ]
+do
+	i=$((i + 1))
+	echo "\nfailed to build grafana container image.\nRetry $i of 5\n"
+	docker build -t my_grafana ./srcs/grafana;
+done
+echo "\n"
+docker build -t my_influxdb ./srcs/influxdb;
+while [ "$?" != 0 ] && [ $i -lt 5 ]
+do
+	i=$((i + 1))
+	echo "\nfailed to build influxDB container image.\nRetry $i of 5\n"
+	docker build -t my_influxdb ./srcs/influxdb;
+done
+echo "\n"
 
 kubectl apply -f srcs/nginx/deployment.yaml;
 kubectl apply -f srcs/wordpress/deployment.yaml;
 kubectl apply -f srcs/mysql/deployment.yaml;
 kubectl apply -f srcs/phpmyadmin/deployment.yaml;
+kubectl apply -f srcs/ftps/deployment.yaml;
+kubectl apply -f srcs/grafana/deployment.yaml;
+kubectl apply -f srcs/influxdb/deployment.yaml;
 
 minikube addons enable dashboard
 minikube addons enable ingress
