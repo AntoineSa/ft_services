@@ -6,13 +6,14 @@
 #    By: asablayr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/28 12:31:40 by asablayr          #+#    #+#              #
-#    Updated: 2020/10/26 17:39:09 by asablayr         ###   ########.fr        #
+#    Updated: 2020/11/07 12:16:30 by asablayr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 FROM	alpine
 
 RUN	apk update
+RUN	apk add telegraf --repository http://dl-3.alpinelinux.org/alpine/edge/testing/
 
 ARG	M_IP
 ENV	M_IP=$M_IP
@@ -23,6 +24,7 @@ RUN	apk add nginx openssh openssl && \
 
 COPY	nginx.conf /etc/nginx/
 COPY	ssl_params.conf etc/nginx/
+COPY	telegraf.conf /etc/telegraf/telegraf.conf
 COPY	nginx_setup.sh .
 
 RUN	chmod 777 nginx_setup.sh

@@ -1,3 +1,4 @@
+telegraf &
 /usr/sbin/influxd &
 sleep 5
 
@@ -9,5 +10,4 @@ then
 	influx -execute "USE influx_db"
 fi
 
-telegraf &
 sleep infinite

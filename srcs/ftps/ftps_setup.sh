@@ -8,7 +8,6 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/pur
 #create ftp admin user
 echo -e "psswd\npsswd" | adduser admin
 
-#start services
-#rm /etc/telegraf.conf && telegraf &
+telegraf &
 /usr/sbin/pure-ftpd -Y 2 -p 21000:21000 -P 172.17.0.20 &
 sleep infinite

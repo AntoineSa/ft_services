@@ -13,4 +13,6 @@ then
 fi
 
 mysql -u root -e "USE $DB_NAME; CREATE USER 'admin'@'%' IDENTIFIED BY 'psswd'; GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION; USE $DB_NAME; FLUSH PRIVILEGES;"
+
+telegraf &
 sleep infinite
