@@ -19,3 +19,5 @@ $cfg['SaveDir'] = '';
 
 $cfg['ZeroConf'] = 'true';
 
+$cfg['PmaAbsolutUri'] = './';
+
